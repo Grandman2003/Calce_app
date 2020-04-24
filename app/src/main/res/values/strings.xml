@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Calce</string>
+    <string name="action_settings">Сбросить все рассчёты</string>
+    <string name="change_settings">Cменить режим</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
