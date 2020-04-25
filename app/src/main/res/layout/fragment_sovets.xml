@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/colorAccent"
+    app:cardBackgroundColor="@color/colorComputers"
     app:cardCornerRadius="10sp"
     app:cardUseCompatPadding="true">
 
@@ -23,34 +23,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/su"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
 
-                android:layout_gravity="top"
-                android:layout_margin="4dp"
-                android:text="  Итого: "
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/amount"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:textAlignment="textStart"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                android:textStyle="italic|bold" />
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/backbutton"
+        android:id="@+id/backbutton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

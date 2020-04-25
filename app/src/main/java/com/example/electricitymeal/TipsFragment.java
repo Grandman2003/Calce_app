@@ -13,15 +13,21 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Objects;
 
@@ -38,17 +44,24 @@ public class TipsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public TextView textView;
+    private Button backbutton;
+    private TipsFragment fragment;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Toolbar toolbar;
     private String resultation;
     private OnFragmentInteractionListener mListener;
 
     public TipsFragment() {
         // Required empty public constructor
+    }
+
+    public void setFragment(TipsFragment fragment) {
+        this.fragment = fragment;
     }
 
     /**
@@ -60,6 +73,7 @@ public class TipsFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static TipsFragment newInstance() {
         TipsFragment fragment = new TipsFragment();
+        fragment.setFragment(fragment);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -70,7 +84,6 @@ public class TipsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
     }
 
     @Override
@@ -88,10 +101,29 @@ public class TipsFragment extends Fragment {
     }
     @SuppressLint("SetTextI18n")
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView=(TextView) view.findViewById(R.id.amount);
+        toolbar=(Toolbar)getActivity().findViewById(R.id.toolbar);
         textView.setText(resultation);
+        backbutton=(Button)view.findViewById(R.id.backbutton);
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                assert getFragmentManager() != null;
+                toolbar.getMenu().getItem(1).setVisible(true);
+                  getFragmentManager().beginTransaction().remove(fragment).commit();
+                  FloatingActionButton fab= Objects.requireNonNull(getActivity()).findViewById(R.id.fab);
+                  FloatingActionButton tips= Objects.requireNonNull(getActivity()).findViewById(R.id.tips);
+                  Button button=getActivity().findViewById(R.id.culc);
+                  button.setClickable(true);
+                  button.setVisibility(View.VISIBLE);
+                  tips.setVisibility(View.VISIBLE);
+                  fab.setClickable(true);
+                  tips.setClickable(true);
+                  fab.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
     public void setTextView(TextView textView){
@@ -105,9 +137,9 @@ public class TipsFragment extends Fragment {
         }
         //textView.setText(Integer.parseInt(rubl) * sum + " руб.");
         resultation=Integer.parseInt(rubl) * sum + " руб.";
-        if(Integer.parseInt(rubl)*sum>20000) {
+        /*if(Integer.parseInt(rubl)*sum>20000) {
             Log.d("gsonon","sum more");
-            NotificationManager mgr = (NotificationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager mgr = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
             assert mgr != null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && mgr.getNotificationChannel("spendings") == null) {
                 mgr.createNotificationChannel(new NotificationChannel("spendings", "Intervention", NotificationManager.IMPORTANCE_DEFAULT));
@@ -124,7 +156,7 @@ public class TipsFragment extends Fragment {
             PendingIntent pi = PendingIntent.getActivity(getContext(), 0, outbound, PendingIntent.FLAG_UPDATE_CURRENT);
             b.setContentIntent(pi);
             mgr.notify(0,b.build());
-        }
+        } */
     }
 
    /* @Override

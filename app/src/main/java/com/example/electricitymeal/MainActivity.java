@@ -1,5 +1,6 @@
 package com.example.electricitymeal;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,6 +10,7 @@ import android.content.ContentProviderResult;
 import android.content.Context;
 import android.content.Intent;
 import android.content.OperationApplicationException;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private List<Informationcard> items = new ArrayList<>();
     private Button button;
+    private FloatingActionButton fab;
+    private FloatingActionButton tips;
 
 
     TipsFragment tipsFragment;
@@ -69,8 +73,9 @@ public class MainActivity extends AppCompatActivity {
        // Point size=new Point();
         //display.getSize(size);
        // int mHeight=size.y;
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        Button delete=findViewById(R.id.action_settings);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        final Button delete=findViewById(R.id.action_settings);
+        Button change=findViewById(R.id.change_settings);
         mPoints=new ArrayList<>();
         rexult=(TextView)findViewById(R.id.amount);
         setSupportActionBar(toolbar);
@@ -86,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         Toast.makeText(this,"Чтобы добавить объект затрат нажмите на плюс",Toast.LENGTH_LONG).show();
-        final FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
+        tips=findViewById(R.id.tips);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,9 +112,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
                 int sum=0;
+                toolbar.getMenu().getItem(1).setVisible(false);
                 if(items.size()!=0){
                     Log.d("gsonon","counter clicked");
                     //CustomHolder holder=(CustomHolder) Objects.requireNonNull(recyclerView.getAdapter()).onCreateViewHolder(recyclerView,1);
@@ -123,15 +131,45 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().add(R.id.allres,tipsFragment).commit();
                     tipsFragment.setRusultation(sum,fragment.getRubl());
                     fab.setVisibility(View.INVISIBLE);
+                    tips.setVisibility(View.INVISIBLE);
                     button.setVisibility(View.INVISIBLE);
                     fab.setClickable(false);
+
                     button.setClickable(false);
+                    if(Integer.parseInt(fragment.getRubl())*sum>20000) {
+                        Log.d("gsonon","sum more");
+                        NotificationManager mgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        assert mgr != null;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && mgr.getNotificationChannel("spendings") == null) {
+                            mgr.createNotificationChannel(new NotificationChannel("spendings", "Intervention", NotificationManager.IMPORTANCE_DEFAULT));
+                        }
+                        NotificationCompat.Builder b = new NotificationCompat.Builder(getApplicationContext(), "spendings");
+                        b.setAutoCancel(true);
+                        Log.d("gsonon","notification created");
+                        b.setContentTitle("Слишком большие затраты")
+                                .setContentText("Удалите некоторые элементы или уменьшите затраты")
+                                .setSmallIcon(android.R.drawable.stat_notify_more)
+                                .setPriority(Notification.PRIORITY_HIGH)
+                                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                        Intent outbound = new Intent(Intent.ACTION_VIEW);
+                        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, outbound, PendingIntent.FLAG_UPDATE_CURRENT);
+                        b.setContentIntent(pi);
+                        mgr.notify(0,b.build());
+                    }
                 }else{
                     //fragment.setRusultation(0);
                     Log.d("gsonon","size =0");
                 }
             }
         });
+    }
+    public void setInteractivity(){
+        fab.setClickable(true);
+        button.setClickable(true);
+        tips.setClickable(true);
+        tips.setVisibility(View.VISIBLE);
+        fab.setVisibility(View.VISIBLE);
+        button.setVisibility(View.VISIBLE);
     }
 
 
@@ -153,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             items.clear();
             recyclerView.setAdapter(new CustomAdapter(items));
+            //button.setClickable(false);
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            button.setVisibility(View.INVISIBLE);
             return true;
         }
 
