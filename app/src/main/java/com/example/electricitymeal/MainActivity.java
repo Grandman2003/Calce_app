@@ -61,12 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     TipsFragment tipsFragment;
+    SovetsFragment sovetsFragment;
     ResultFragment fragment;
     public List<CustomHolder> mPoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragment =ResultFragment.newInstance();
+        sovetsFragment=SovetsFragment.newInstance();
         tipsFragment=TipsFragment.newInstance();;
         setContentView(R.layout.activity_main);
         //Display display=getWindowManager().getDefaultDisplay();
@@ -109,6 +111,15 @@ public class MainActivity extends AppCompatActivity {
                     recyclerView.setAdapter(mAdapter);
                         //addContact(contactName, contactPhone);
                         Toast.makeText(getApplicationContext(), "Карточка добавлена", Toast.LENGTH_SHORT).show();
+            }
+        });
+        tips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().add(R.id.allres,sovetsFragment).commit();
+                fab.setVisibility(View.INVISIBLE);
+                tips.setVisibility(View.INVISIBLE);
+                button.setVisibility(View.INVISIBLE);
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
