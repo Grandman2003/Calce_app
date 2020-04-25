@@ -1,13 +1,15 @@
 package com.example.electricitymeal;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,11 +18,15 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class SovetsFragment extends Fragment {
-    public TextView textView;
     private Button backbutton;
+    private ListView listView;
+    private SimpleAdapter simpleAdapter;
     private SovetsFragment fragment;
     // TODO: Rename and change types of parameters
     private Toolbar toolbar;
@@ -54,7 +60,7 @@ public class SovetsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+
     }
 
     @Override
@@ -76,6 +82,35 @@ public class SovetsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         toolbar=(Toolbar)getActivity().findViewById(R.id.toolbar);
         backbutton=(Button)view.findViewById(R.id.backbutton1);
+        LinkedList<Sovet> listBook=new LinkedList<Sovet>();
+        listBook.add(new Sovet(1,"Чтобы добавить карточку нажмите плюс в нижнем правом углу"));
+        listBook.add(new Sovet(2,"При нажатии на минус на карточке, она удаляется"));
+        listBook.add(new Sovet(3,"Чтобы скоратить затраты уменьшите кол-во используемого оборудования"));
+        listBook.add(new Sovet(4,"Данное приложение имеет 4 раздела: освещение, бытовая техника, компьютерная и оргтехника, электроинструменты"));
+        listBook.add(new Sovet(5,"Каждый раздел имеет свой цвет, чтобы назначить цвет раздела и определить карточку к нему в зоне устройство " +
+                "карточки запишите сперва название раздела, а потом через запятую название устройства,например:компьютеры, персональный компьютер " ));
+        setRetainInstance(true);
+        ArrayList<HashMap<String,Object>> sovetlist=new ArrayList<>();
+        HashMap<String,Object> map;
+        for(int i=0;i<listBook.size();i++){
+            map=new HashMap<String,Object>();
+            map.put("id",listBook.get(i).id);
+            map.put("text",listBook.get(i).text);
+            sovetlist.add(map);
+            if(simpleAdapter!=null){
+                simpleAdapter.notifyDataSetChanged();
+            }
+            //sdb.execSQL("INSERT INTO"+ null+" " );
+            //sdb.insert(OpenHelper.DATABASE_TABLE,null,contents);
+        }
+        String id[]={"id","text"};
+        int to[]={R.id.sovet_id,R.id.sovet_text};
+
+        simpleAdapter=new SimpleAdapter(getContext(),sovetlist,R.layout.sovet_item,id,to);
+        simpleAdapter.notifyDataSetChanged();
+        listView=(ListView)getView().findViewById(R.id.tipslist);
+        listView.setAdapter(simpleAdapter);
+        listView.setDivider(null);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +164,15 @@ public class SovetsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+}
+class Sovet {
+    String text;
+    int id;
+
+    public Sovet(int id,String text ) {
+        this.id = id;
+        this.text = text;
     }
 }
 
