@@ -29,6 +29,8 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -48,6 +50,16 @@ public class TipsFragment extends Fragment {
     private TipsFragment fragment;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
+    String lightpower;
+    String    lightcost;
+    String applpower;
+    String applcost;
+    String comppower;
+     String compcost;
+    String otherpower;
+   String othercost;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,7 +95,7 @@ public class TipsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+       setRetainInstance(true);
     }
 
     @Override
@@ -106,6 +118,26 @@ public class TipsFragment extends Fragment {
         textView=(TextView) view.findViewById(R.id.amount);
         toolbar=(Toolbar)getActivity().findViewById(R.id.toolbar);
         textView.setText(resultation);
+
+        //result fields
+         TextView b1=(TextView)view.findViewById(R.id.svet_pow);
+         TextView b2=(TextView)view.findViewById(R.id.svet_cost);
+        TextView b3=(TextView)view.findViewById(R.id.appl_pow);
+        TextView b4=(TextView)view.findViewById(R.id.appl_cost);
+        TextView b5=(TextView)view.findViewById(R.id.comp_pow);
+        TextView b6=(TextView)view.findViewById(R.id.comp_cost);
+        TextView b7=(TextView)view.findViewById(R.id.other_pow);
+        TextView b8=(TextView) view.findViewById(R.id.other_cost);
+        b1.setText(lightpower);
+        b2.setText(lightcost);
+        b3.setText(applpower);
+        b4.setText(applcost);
+        b5.setText(comppower);
+        b6.setText(compcost);
+        b7.setText(otherpower);
+        b8.setText(othercost);
+
+
         backbutton=(Button)view.findViewById(R.id.backbutton);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +162,38 @@ public class TipsFragment extends Fragment {
         this.textView=textView;
     }
 
+    public void setCounting(List<Informationcard> items, String rubl){
+        int sumsvetpower = 0;
+        int sumsvetcost=0;
+        for(int i=0;i<items.size();i++){
+            String s[]=items.get(i).mGoal.toLowerCase().split(" ");
+            for (int j=0;j<s.length;j++){
+                switch (s[j]){
+                    case "освещение" :
+                          sumsvetpower+=items.get(i).mPower;
+                          sumsvetcost += items.get(i).mResult;
+                          //тоже самое и сдругими элементами
+                        break;
+                    case "компьютеры" :
+                        break;
+                    case "бытовая" :
+                        break;
+                    case "электроинструметы" :
+                        break;
+
+
+                        default:
+                            break;
+
+                }
+            }
+            lightpower= String.valueOf(sumsvetpower);
+            lightcost= String.valueOf(sumsvetcost);
+
+        }
+
+    }
+
     @SuppressLint("SetTextI18n")
     public void setRusultation(int sum, String rubl){
         if(rubl.equals("")){
@@ -137,6 +201,7 @@ public class TipsFragment extends Fragment {
         }
         //textView.setText(Integer.parseInt(rubl) * sum + " руб.");
         resultation=Integer.parseInt(rubl) * sum + " руб.";
+
         /*if(Integer.parseInt(rubl)*sum>20000) {
             Log.d("gsonon","sum more");
             NotificationManager mgr = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);

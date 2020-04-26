@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     recyclerView.setAdapter(mAdapter);
                     getSupportFragmentManager().beginTransaction().add(R.id.allres,tipsFragment).commit();
                     tipsFragment.setRusultation(sum,fragment.getRubl());
+                    tipsFragment.setCounting(items,fragment.getRubl());
                     fab.setVisibility(View.INVISIBLE);
                     tips.setVisibility(View.INVISIBLE);
                     button.setVisibility(View.INVISIBLE);
