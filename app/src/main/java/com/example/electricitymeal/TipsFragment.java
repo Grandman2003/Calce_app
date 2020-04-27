@@ -137,7 +137,6 @@ public class TipsFragment extends Fragment {
         b7.setText(otherpower);
         b8.setText(othercost);
 
-
         backbutton=(Button)view.findViewById(R.id.backbutton);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,30 +164,101 @@ public class TipsFragment extends Fragment {
     public void setCounting(List<Informationcard> items, String rubl){
         int sumsvetpower = 0;
         int sumsvetcost=0;
+        int sumapplpower = 0;
+        int sumapplcost=0;
+        int sumcomppower = 0;
+        int sumcompcost=0;
+        int sumotherpower = 0;
+        int sumothercost=0;
         for(int i=0;i<items.size();i++){
             String s[]=items.get(i).mGoal.toLowerCase().split(" ");
             for (int j=0;j<s.length;j++){
                 switch (s[j]){
                     case "освещение" :
                           sumsvetpower+=items.get(i).mPower;
-                          sumsvetcost += items.get(i).mResult;
-                          //тоже самое и сдругими элементами
+                          sumsvetcost += items.get(i).mResult*Integer.parseInt(rubl);
+                          //тоже самое и с другими элементами
                         break;
                     case "компьютеры" :
+                        sumcomppower+=items.get(i).mPower;
+                        sumcompcost += items.get(i).mResult*Integer.parseInt(rubl);
                         break;
                     case "бытовая" :
+                        sumapplpower+=items.get(i).mPower;
+                        sumapplcost+= items.get(i).mResult*Integer.parseInt(rubl);
                         break;
                     case "электроинструметы" :
+                        sumotherpower+=items.get(i).mPower;
+                        sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "освещение," :
+                        sumsvetpower+=items.get(i).mPower;
+                        sumsvetcost += items.get(i).mResult*Integer.parseInt(rubl);
+                        //тоже самое и с другими элементами
+                        break;
+                    case "компьютеры," :
+                        sumcomppower+=items.get(i).mPower;
+                        sumcompcost += items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "бытовая," :
+                        sumapplpower+=items.get(i).mPower;
+                        sumapplcost+= items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "электроинструметы," :
+                        sumotherpower+=items.get(i).mPower;
+                        sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "lighting" :
+                        sumsvetpower+=items.get(i).mPower;
+                        sumsvetcost += items.get(i).mResult*Integer.parseInt(rubl);
+                        //тоже самое и с другими элементами
+                        break;
+                    case "computers" :
+                        sumcomppower+=items.get(i).mPower;
+                        sumcompcost += items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "appliances" :
+                        sumapplpower+=items.get(i).mPower;
+                        sumapplcost+= items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "power" :
+                        sumotherpower+=items.get(i).mPower;
+                        sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "lighting," :
+                        sumsvetpower+=items.get(i).mPower;
+                        sumsvetcost += items.get(i).mResult*Integer.parseInt(rubl);
+                        //тоже самое и с другими элементами
+                        break;
+                    case "computers," :
+                        sumcomppower+=items.get(i).mPower;
+                        sumcompcost += items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "appliances," :
+                        sumapplpower+=items.get(i).mPower;
+                        sumapplcost+= items.get(i).mResult*Integer.parseInt(rubl);
+                        break;
+                    case "power," :
+                        sumotherpower+=items.get(i).mPower;
+                        sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
                         break;
 
 
                         default:
+                            sumotherpower+=items.get(i).mPower;
+                            sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
                             break;
 
                 }
             }
             lightpower= String.valueOf(sumsvetpower);
             lightcost= String.valueOf(sumsvetcost);
+            applpower= String.valueOf(sumapplpower);
+            applcost= String.valueOf(sumapplcost);
+            comppower= String.valueOf(sumcomppower);
+            compcost= String.valueOf(sumcompcost);
+            otherpower= String.valueOf(sumotherpower);
+            othercost= String.valueOf(sumothercost);
 
         }
 

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private FloatingActionButton tips;
 
-
+    Elements elements;
     TipsFragment tipsFragment;
     SovetsFragment sovetsFragment;
     ResultFragment fragment;
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         fragment =ResultFragment.newInstance();
         sovetsFragment=SovetsFragment.newInstance();
         tipsFragment=TipsFragment.newInstance();;
+        elements=Elements.newInstance();
         setContentView(R.layout.activity_main);
         //Display display=getWindowManager().getDefaultDisplay();
        // Point size=new Point();
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Toast.makeText(this,"Чтобы добавить объект затрат нажмите на плюс",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Для ознакомления с приложением нажмите на зелёную кнопку",Toast.LENGTH_LONG).show();
         fab = findViewById(R.id.fab);
         tips=findViewById(R.id.tips);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 button.setVisibility(View.VISIBLE);
                 FragmentManager fragmentManager=getSupportFragmentManager();
+                sovetsFragment.state=1;
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 if(findViewById(R.id.fragmentContainer)==null){
                 fragmentTransaction.add(R.id.fragmentContainer,fragment).commit();}
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().add(R.id.allres,sovetsFragment).commit();
+                toolbar.getMenu().getItem(1).setVisible(false);
                 fab.setVisibility(View.INVISIBLE);
                 tips.setVisibility(View.INVISIBLE);
                 button.setVisibility(View.INVISIBLE);
@@ -192,6 +195,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public List<Informationcard> getItems() {
+        return items;
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -202,9 +210,27 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             items.clear();
+            sovetsFragment.state=0;
             recyclerView.setAdapter(new CustomAdapter(items));
             //button.setClickable(false);
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            button.setVisibility(View.INVISIBLE);
+            return true;
+        }
+        if (id == R.id.change_settings) {
+            sovetsFragment.state=0;
+            fab.setClickable(false);
+            button.setClickable(false);
+            tips.setClickable(false);
+            tips.setVisibility(View.INVISIBLE);
+            fab.setVisibility(View.INVISIBLE);
+            button.setVisibility(View.INVISIBLE);
+            //button.setClickable(false);
+            if(findViewById(R.id.allres)==null){
+            getSupportFragmentManager().beginTransaction().add(R.id.allres,elements).commit();}
+            else{
+                getSupportFragmentManager().beginTransaction().replace(R.id.allres,elements).commit();
+            }
             button.setVisibility(View.INVISIBLE);
             return true;
         }

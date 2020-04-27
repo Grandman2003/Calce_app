@@ -24,30 +24,30 @@
                 >
 
                 <Space
-                    android:layout_width="100dp"
+                    android:layout_width="49dp"
                     android:layout_height="match_parent"
                     android:layout_margin="4dp" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="120dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="4dp"
-                    android:textStyle="bold|italic"
-                    android:text="Общее потребление кВт/месяц "
+                    android:text="Общее потребление кВт/день "
                     android:textColor="#FFFFFF"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_margin="4dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold|italic"
-                    android:layout_width="match_parent"
+                    android:layout_width="89dp"
                     android:layout_height="match_parent"
-                    android:text="К оплате:"
+                    android:layout_margin="4dp"
+                    android:text="К оплате (в рублях):"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp"
 
-                    android:textColor="#FFFFFF" />
+                    android:textStyle="bold|italic" />
             </TableRow>
 
             <TableRow

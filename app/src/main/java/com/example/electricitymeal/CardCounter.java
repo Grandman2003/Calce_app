@@ -130,7 +130,8 @@ public class CardCounter extends Fragment {
                         cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.colorComputers));
                         del.setBackgroundColor(itemView.getResources().getColor(R.color.colorComputers));
                     }
-                    if (s[i].equals("электроинструменты") ||s[i].equals("электроинструмент")|| s[i].equals("power")||s[i].equals("электроинструменты,") ||s[i].equals("электроинструмент,")|| s[i].equals("power,")) {
+                    if (s[i].equals("электроинструменты") ||s[i].equals("электроинструмент")|| s[i].equals("power")||s[i].equals("электроинструменты,")
+                            ||s[i].equals("электроинструмент,")|| s[i].equals("power,")||s[i].equals("другое,")||s[i].equals("другое")) {
                         cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.colorTools));
                         del.setBackgroundColor(itemView.getResources().getColor(R.color.colorTools));
                 }

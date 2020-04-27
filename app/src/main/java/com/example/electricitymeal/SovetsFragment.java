@@ -26,6 +26,7 @@ import java.util.Objects;
 public class SovetsFragment extends Fragment {
     private Button backbutton;
     private ListView listView;
+    public int state;
     private SimpleAdapter simpleAdapter;
     private SovetsFragment fragment;
     // TODO: Rename and change types of parameters
@@ -120,8 +121,9 @@ public class SovetsFragment extends Fragment {
                 FloatingActionButton fab= Objects.requireNonNull(getActivity()).findViewById(R.id.fab);
                 FloatingActionButton tips= Objects.requireNonNull(getActivity()).findViewById(R.id.tips);
                 Button button=getActivity().findViewById(R.id.culc);
+                if(state==1){
                 button.setClickable(true);
-                button.setVisibility(View.VISIBLE);
+                button.setVisibility(View.VISIBLE);}
                 tips.setVisibility(View.VISIBLE);
                 fab.setClickable(true);
                 tips.setClickable(true);
