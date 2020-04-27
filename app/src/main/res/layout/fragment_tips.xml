@@ -219,6 +219,25 @@
                 android:textStyle="italic|bold" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Примечание:"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="italic|bold" />
+
+        <TextView
+            android:id="@+id/samsovet"
+            android:textColor="#FFFFFF"
+            android:textSize="21sp"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ваши затараты под контролем и беспокоиться не стоит, но если хотите ещё уменьшить свои расходы посмотрите наши советы, нахжав на зелёную кнопку на главном экране" />
+
     </LinearLayout>
 
     <Button

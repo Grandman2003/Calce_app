@@ -47,6 +47,7 @@ public class TipsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public TextView textView;
     private Button backbutton;
+    private TextView sovet;
     private TipsFragment fragment;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -66,6 +67,7 @@ public class TipsFragment extends Fragment {
     private String mParam2;
     private Toolbar toolbar;
     private String resultation;
+    private int resultic;
     private OnFragmentInteractionListener mListener;
 
     public TipsFragment() {
@@ -117,6 +119,16 @@ public class TipsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         textView=(TextView) view.findViewById(R.id.amount);
         toolbar=(Toolbar)getActivity().findViewById(R.id.toolbar);
+        sovet=(TextView)view.findViewById(R.id.samsovet);
+        if(resultic<20000){
+            sovet.setText("Ваши затараты под контролем и беспокоиться не стоит, но если хотите ещё" +
+                    " уменьшить свои расходы посмотрите наши советы," +
+                    " нахжав на зелёную кнопку на главном экране");
+        }else{
+            sovet.setText("К сожалению, у вас повышенные расходы.Чтобы как-то поправить" +
+                    " ситуацию обратитесь к разделу советы,который можно" +
+                    " открыть,нажав на зелённую кнопку на главном углу");
+        }
         textView.setText(resultation);
 
         //result fields
@@ -270,6 +282,7 @@ public class TipsFragment extends Fragment {
             rubl="0";
         }
         //textView.setText(Integer.parseInt(rubl) * sum + " руб.");
+        resultic=Integer.parseInt(rubl) * sum;
         resultation=Integer.parseInt(rubl) * sum + " руб.";
 
         /*if(Integer.parseInt(rubl)*sum>20000) {

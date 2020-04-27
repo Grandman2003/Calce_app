@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private FloatingActionButton fab;
     private FloatingActionButton tips;
+    private int resart;
 
     Elements elements;
     TipsFragment tipsFragment;
@@ -225,12 +226,26 @@ public class MainActivity extends AppCompatActivity {
             tips.setVisibility(View.INVISIBLE);
             fab.setVisibility(View.INVISIBLE);
             button.setVisibility(View.INVISIBLE);
-            //button.setClickable(false);
-            if(findViewById(R.id.allres)==null){
-            getSupportFragmentManager().beginTransaction().add(R.id.allres,elements).commit();}
-            else{
+            if(resart%2==0){
                 getSupportFragmentManager().beginTransaction().replace(R.id.allres,elements).commit();
+                fab.setClickable(false);
+                button.setClickable(false);
+                tips.setClickable(false);
+                tips.setVisibility(View.INVISIBLE);
+                fab.setVisibility(View.INVISIBLE);
+                button.setVisibility(View.INVISIBLE);
+                resart++;
+            }else{
+                getSupportFragmentManager().beginTransaction().remove(elements).commit();
+                fab.setClickable(true);
+                button.setClickable(true);
+                tips.setClickable(true);
+                tips.setVisibility(View.VISIBLE);
+                fab.setVisibility(View.VISIBLE);
+                button.setVisibility(View.VISIBLE);
+                resart++;
             }
+            //button.setClickable(false);
             button.setVisibility(View.INVISIBLE);
             return true;
         }
