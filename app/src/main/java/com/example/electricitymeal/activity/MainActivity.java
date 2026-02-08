@@ -1,52 +1,44 @@
-package com.example.electricitymeal;
+package com.example.electricitymeal.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
 import android.content.Context;
 import android.content.Intent;
-import android.content.OperationApplicationException;
-import android.content.res.Resources;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.electricitymeal.fragment.card.CustomHolder;
+import com.example.electricitymeal.fragment.card.Informationcard;
+import com.example.electricitymeal.fragment.elements.Elements;
+import com.example.electricitymeal.R;
+import com.example.electricitymeal.fragment.result.ResultFragment;
+import com.example.electricitymeal.fragment.sovets.SovetsFragment;
+import com.example.electricitymeal.fragment.tips.TipsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.RemoteException;
-import android.print.PrintAttributes;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     //private CardCounter.CustomAdapter mAdapter;
@@ -137,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     //CustomHolder holder=(CustomHolder) Objects.requireNonNull(recyclerView.getAdapter()).onCreateViewHolder(recyclerView,1);
                     for (int i=0;i<items.size();i++){
                         Log.d("gsonon","array entered");
-                        Log.d("gsonon","мощность "+mPoints.get(i).power.getText().toString());
+                        Log.d("gsonon","мощность "+ mPoints.get(i).getPower().getText().toString());
                        items.set(i, mPoints.get(i).InsertModel(items.get(i)));
                        sum=sum+items.get(i).mResult;
                     }
@@ -294,18 +286,16 @@ public class MainActivity extends AppCompatActivity {
             else{
                 mPoints.add(position,holder);
             }
-            holder.del.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    items.remove(mItems.get(position));
+            holder.del.setOnClickListener((View view) -> {
+                    int holderPosition = holder.getAdapterPosition();
+                    items.remove(mItems.get(holderPosition));
                     mPoints.remove(holder);
                     for (int i=0;i<items.size();i++){
                         Log.d("gsonon","array entered");
-                        Log.d("gsonon","мощность "+mPoints.get(i).power.getText().toString());
+                        Log.d("gsonon","мощность "+ mPoints.get(i).getPower().getText().toString());
                         items.set(i, mPoints.get(i).EditModel(items.get(i)));
                     }
                     recyclerView.setAdapter(new CustomAdapter(items));
-                }
             });
             /*holder.title.setOnClickListener(new View.OnClickListener() {
                 @Override

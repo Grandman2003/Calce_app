@@ -1,7 +1,6 @@
-package com.example.electricitymeal;
+package com.example.electricitymeal.fragment.sovets;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.electricitymeal.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

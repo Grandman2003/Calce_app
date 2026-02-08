@@ -1,35 +1,24 @@
-package com.example.electricitymeal;
+package com.example.electricitymeal.fragment.tips;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.electricitymeal.R;
+import com.example.electricitymeal.fragment.card.Informationcard;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,13 +43,13 @@ public class TipsFragment extends Fragment {
 
 
     String lightpower;
-    String    lightcost;
+    String lightcost;
     String applpower;
     String applcost;
     String comppower;
-     String compcost;
+    String compcost;
     String otherpower;
-   String othercost;
+    String othercost;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -97,7 +86,7 @@ public class TipsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setRetainInstance(true);
+        setRetainInstance(true);
     }
 
     @Override
@@ -113,18 +102,19 @@ public class TipsFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
     @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        textView=(TextView) view.findViewById(R.id.amount);
-        toolbar=(Toolbar)getActivity().findViewById(R.id.toolbar);
-        sovet=(TextView)view.findViewById(R.id.samsovet);
-        if(resultic<20000){
+        textView = (TextView) view.findViewById(R.id.amount);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        sovet = (TextView) view.findViewById(R.id.samsovet);
+        if (resultic < 20000) {
             sovet.setText("Ваши затараты под контролем и беспокоиться не стоит, но если хотите ещё" +
                     " уменьшить свои расходы посмотрите наши советы," +
                     " нахжав на зелёную кнопку на главном экране");
-        }else{
+        } else {
             sovet.setText("К сожалению, у вас повышенные расходы.Чтобы как-то поправить" +
                     " ситуацию обратитесь к разделу советы,который можно" +
                     " открыть,нажав на зелённую кнопку на главном углу");
@@ -132,14 +122,14 @@ public class TipsFragment extends Fragment {
         textView.setText(resultation);
 
         //result fields
-         TextView b1=(TextView)view.findViewById(R.id.svet_pow);
-         TextView b2=(TextView)view.findViewById(R.id.svet_cost);
-        TextView b3=(TextView)view.findViewById(R.id.appl_pow);
-        TextView b4=(TextView)view.findViewById(R.id.appl_cost);
-        TextView b5=(TextView)view.findViewById(R.id.comp_pow);
-        TextView b6=(TextView)view.findViewById(R.id.comp_cost);
-        TextView b7=(TextView)view.findViewById(R.id.other_pow);
-        TextView b8=(TextView) view.findViewById(R.id.other_cost);
+        TextView b1 = (TextView) view.findViewById(R.id.svet_pow);
+        TextView b2 = (TextView) view.findViewById(R.id.svet_cost);
+        TextView b3 = (TextView) view.findViewById(R.id.appl_pow);
+        TextView b4 = (TextView) view.findViewById(R.id.appl_cost);
+        TextView b5 = (TextView) view.findViewById(R.id.comp_pow);
+        TextView b6 = (TextView) view.findViewById(R.id.comp_cost);
+        TextView b7 = (TextView) view.findViewById(R.id.other_pow);
+        TextView b8 = (TextView) view.findViewById(R.id.other_cost);
         b1.setText(lightpower);
         b2.setText(lightcost);
         b3.setText(applpower);
@@ -149,141 +139,142 @@ public class TipsFragment extends Fragment {
         b7.setText(otherpower);
         b8.setText(othercost);
 
-        backbutton=(Button)view.findViewById(R.id.backbutton);
+        backbutton = (Button) view.findViewById(R.id.backbutton);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 assert getFragmentManager() != null;
                 toolbar.getMenu().getItem(1).setVisible(true);
-                  getFragmentManager().beginTransaction().remove(fragment).commit();
-                  FloatingActionButton fab= Objects.requireNonNull(getActivity()).findViewById(R.id.fab);
-                  FloatingActionButton tips= Objects.requireNonNull(getActivity()).findViewById(R.id.tips);
-                  Button button=getActivity().findViewById(R.id.culc);
-                  button.setClickable(true);
-                  button.setVisibility(View.VISIBLE);
-                  tips.setVisibility(View.VISIBLE);
-                  fab.setClickable(true);
-                  tips.setClickable(true);
-                  fab.setVisibility(View.VISIBLE);
+                getFragmentManager().beginTransaction().remove(fragment).commit();
+                FloatingActionButton fab = Objects.requireNonNull(getActivity()).findViewById(R.id.fab);
+                FloatingActionButton tips = Objects.requireNonNull(getActivity()).findViewById(R.id.tips);
+                Button button = getActivity().findViewById(R.id.culc);
+                button.setClickable(true);
+                button.setVisibility(View.VISIBLE);
+                tips.setVisibility(View.VISIBLE);
+                fab.setClickable(true);
+                tips.setClickable(true);
+                fab.setVisibility(View.VISIBLE);
             }
         });
 
     }
-    public void setTextView(TextView textView){
-        this.textView=textView;
+
+    public void setTextView(TextView textView) {
+        this.textView = textView;
     }
 
-    public void setCounting(List<Informationcard> items, String rubl){
+    public void setCounting(List<Informationcard> items, String rubl) {
         int sumsvetpower = 0;
-        int sumsvetcost=0;
+        int sumsvetcost = 0;
         int sumapplpower = 0;
-        int sumapplcost=0;
+        int sumapplcost = 0;
         int sumcomppower = 0;
-        int sumcompcost=0;
+        int sumcompcost = 0;
         int sumotherpower = 0;
-        int sumothercost=0;
-        for(int i=0;i<items.size();i++){
-            String s[]=items.get(i).mGoal.toLowerCase().split(" ");
-            for (int j=0;j<s.length;j++){
-                switch (s[j]){
-                    case "освещение" :
-                          sumsvetpower+=items.get(i).mPower;
-                          sumsvetcost += items.get(i).mResult*Integer.parseInt(rubl);
-                          //тоже самое и с другими элементами
-                        break;
-                    case "компьютеры" :
-                        sumcomppower+=items.get(i).mPower;
-                        sumcompcost += items.get(i).mResult*Integer.parseInt(rubl);
-                        break;
-                    case "бытовая" :
-                        sumapplpower+=items.get(i).mPower;
-                        sumapplcost+= items.get(i).mResult*Integer.parseInt(rubl);
-                        break;
-                    case "электроинструметы" :
-                        sumotherpower+=items.get(i).mPower;
-                        sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
-                        break;
-                    case "освещение," :
-                        sumsvetpower+=items.get(i).mPower;
-                        sumsvetcost += items.get(i).mResult*Integer.parseInt(rubl);
+        int sumothercost = 0;
+        for (int i = 0; i < items.size(); i++) {
+            String s[] = items.get(i).mGoal.toLowerCase().split(" ");
+            for (int j = 0; j < s.length; j++) {
+                switch (s[j]) {
+                    case "освещение":
+                        sumsvetpower += items.get(i).mPower;
+                        sumsvetcost += items.get(i).mResult * Integer.parseInt(rubl);
                         //тоже самое и с другими элементами
                         break;
-                    case "компьютеры," :
-                        sumcomppower+=items.get(i).mPower;
-                        sumcompcost += items.get(i).mResult*Integer.parseInt(rubl);
+                    case "компьютеры":
+                        sumcomppower += items.get(i).mPower;
+                        sumcompcost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
-                    case "бытовая," :
-                        sumapplpower+=items.get(i).mPower;
-                        sumapplcost+= items.get(i).mResult*Integer.parseInt(rubl);
+                    case "бытовая":
+                        sumapplpower += items.get(i).mPower;
+                        sumapplcost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
-                    case "электроинструметы," :
-                        sumotherpower+=items.get(i).mPower;
-                        sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
+                    case "электроинструметы":
+                        sumotherpower += items.get(i).mPower;
+                        sumothercost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
-                    case "lighting" :
-                        sumsvetpower+=items.get(i).mPower;
-                        sumsvetcost += items.get(i).mResult*Integer.parseInt(rubl);
+                    case "освещение,":
+                        sumsvetpower += items.get(i).mPower;
+                        sumsvetcost += items.get(i).mResult * Integer.parseInt(rubl);
                         //тоже самое и с другими элементами
                         break;
-                    case "computers" :
-                        sumcomppower+=items.get(i).mPower;
-                        sumcompcost += items.get(i).mResult*Integer.parseInt(rubl);
+                    case "компьютеры,":
+                        sumcomppower += items.get(i).mPower;
+                        sumcompcost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
-                    case "appliances" :
-                        sumapplpower+=items.get(i).mPower;
-                        sumapplcost+= items.get(i).mResult*Integer.parseInt(rubl);
+                    case "бытовая,":
+                        sumapplpower += items.get(i).mPower;
+                        sumapplcost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
-                    case "power" :
-                        sumotherpower+=items.get(i).mPower;
-                        sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
+                    case "электроинструметы,":
+                        sumotherpower += items.get(i).mPower;
+                        sumothercost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
-                    case "lighting," :
-                        sumsvetpower+=items.get(i).mPower;
-                        sumsvetcost += items.get(i).mResult*Integer.parseInt(rubl);
+                    case "lighting":
+                        sumsvetpower += items.get(i).mPower;
+                        sumsvetcost += items.get(i).mResult * Integer.parseInt(rubl);
                         //тоже самое и с другими элементами
                         break;
-                    case "computers," :
-                        sumcomppower+=items.get(i).mPower;
-                        sumcompcost += items.get(i).mResult*Integer.parseInt(rubl);
+                    case "computers":
+                        sumcomppower += items.get(i).mPower;
+                        sumcompcost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
-                    case "appliances," :
-                        sumapplpower+=items.get(i).mPower;
-                        sumapplcost+= items.get(i).mResult*Integer.parseInt(rubl);
+                    case "appliances":
+                        sumapplpower += items.get(i).mPower;
+                        sumapplcost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
-                    case "power," :
-                        sumotherpower+=items.get(i).mPower;
-                        sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
+                    case "power":
+                        sumotherpower += items.get(i).mPower;
+                        sumothercost += items.get(i).mResult * Integer.parseInt(rubl);
+                        break;
+                    case "lighting,":
+                        sumsvetpower += items.get(i).mPower;
+                        sumsvetcost += items.get(i).mResult * Integer.parseInt(rubl);
+                        //тоже самое и с другими элементами
+                        break;
+                    case "computers,":
+                        sumcomppower += items.get(i).mPower;
+                        sumcompcost += items.get(i).mResult * Integer.parseInt(rubl);
+                        break;
+                    case "appliances,":
+                        sumapplpower += items.get(i).mPower;
+                        sumapplcost += items.get(i).mResult * Integer.parseInt(rubl);
+                        break;
+                    case "power,":
+                        sumotherpower += items.get(i).mPower;
+                        sumothercost += items.get(i).mResult * Integer.parseInt(rubl);
                         break;
 
 
-                        default:
-                            sumotherpower+=items.get(i).mPower;
-                            sumothercost+= items.get(i).mResult*Integer.parseInt(rubl);
-                            break;
+                    default:
+                        sumotherpower += items.get(i).mPower;
+                        sumothercost += items.get(i).mResult * Integer.parseInt(rubl);
+                        break;
 
                 }
             }
-            lightpower= String.valueOf(sumsvetpower);
-            lightcost= String.valueOf(sumsvetcost);
-            applpower= String.valueOf(sumapplpower);
-            applcost= String.valueOf(sumapplcost);
-            comppower= String.valueOf(sumcomppower);
-            compcost= String.valueOf(sumcompcost);
-            otherpower= String.valueOf(sumotherpower);
-            othercost= String.valueOf(sumothercost);
+            lightpower = String.valueOf(sumsvetpower);
+            lightcost = String.valueOf(sumsvetcost);
+            applpower = String.valueOf(sumapplpower);
+            applcost = String.valueOf(sumapplcost);
+            comppower = String.valueOf(sumcomppower);
+            compcost = String.valueOf(sumcompcost);
+            otherpower = String.valueOf(sumotherpower);
+            othercost = String.valueOf(sumothercost);
 
         }
 
     }
 
     @SuppressLint("SetTextI18n")
-    public void setRusultation(int sum, String rubl){
-        if(rubl.equals("")){
-            rubl="0";
+    public void setRusultation(int sum, String rubl) {
+        if (rubl.equals("")) {
+            rubl = "0";
         }
         //textView.setText(Integer.parseInt(rubl) * sum + " руб.");
-        resultic=Integer.parseInt(rubl) * sum;
-        resultation=Integer.parseInt(rubl) * sum + " руб.";
+        resultic = Integer.parseInt(rubl) * sum;
+        resultation = Integer.parseInt(rubl) * sum + " руб.";
 
         /*if(Integer.parseInt(rubl)*sum>20000) {
             Log.d("gsonon","sum more");
